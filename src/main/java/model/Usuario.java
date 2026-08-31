@@ -3,11 +3,9 @@ package model;
 public class Usuario {
     private Integer id;
     private String nome;
-    private String email;
-    private String senha;
     private Integer idade;
-    private double peso;
-    private double altura;
+    private Double peso;
+    private Double altura;
 
 
     public Integer getId() {
@@ -26,22 +24,6 @@ public class Usuario {
         this.nome = nome;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
     public Integer getIdade() {
         return idade;
     }
@@ -50,19 +32,19 @@ public class Usuario {
         this.idade = idade;
     }
 
-    public double getPeso() {
+    public Double getPeso() {
         return peso;
     }
 
-    public void setPeso(double peso) {
+    public void setPeso(Double peso) {
         this.peso = peso;
     }
 
-    public double getAltura() {
+    public Double getAltura() {
         return altura;
     }
 
-    public void setAltura(double altura) {
+    public void setAltura(Double altura) {
         this.altura = altura;
     }
 }
