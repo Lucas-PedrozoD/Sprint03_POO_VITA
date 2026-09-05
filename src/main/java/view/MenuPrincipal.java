@@ -14,6 +14,8 @@ public class MenuPrincipal {
                     null, janela, janela[0]);
             switch (opcao.toLowerCase()){
                 case ("usuário") -> new MenuUsuario().menu();
+                case ("dispositivo") -> new MenuDispositivo().menu();
+
 
             }
         }while (!opcao.toLowerCase().equals("finalizar"));

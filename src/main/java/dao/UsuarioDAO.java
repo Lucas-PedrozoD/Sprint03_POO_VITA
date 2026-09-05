@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class UsuarioDAO implements GenericDAO<Usuario,Integer>{
 
@@ -63,8 +64,31 @@ public class UsuarioDAO implements GenericDAO<Usuario,Integer>{
         }catch (SQLException e){
             System.out.println(e.getMessage());
         }
-
-
-
     }
+
+    public Optional<Usuario> pesquisarID(Integer id) {
+        String sql = "Select * from java_usuario where id = ?";
+
+        try(Connection connection = ConnectionFactory.obterConexao();
+            PreparedStatement ps = connection.prepareStatement(sql)){
+            ps.setInt(1,id);
+
+            try(ResultSet rs = ps.executeQuery()){
+                if (rs.next()){
+                    Usuario usuario = new Usuario();
+                    usuario.setId(rs.getInt("id"));
+                    usuario.setNome(rs.getString("nome"));
+                    usuario.setIdade(rs.getInt("idade"));
+                    usuario.setPeso(rs.getDouble("peso"));
+                    usuario.setAltura(rs.getDouble("altura"));
+                    return Optional.of(usuario);
+                }
+            }
+        }catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+        return Optional.empty();
+    }
+
+
 }

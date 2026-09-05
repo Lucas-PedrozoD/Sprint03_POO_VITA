@@ -3,6 +3,7 @@ import dao.UsuarioDAO;
 import model.Usuario;
 
 import java.util.List;
+import java.util.Optional;
 
 import static javax.swing.JOptionPane.*;
 import static java.lang.Integer.parseInt;
@@ -11,7 +12,7 @@ import static java.lang.Double.parseDouble;
 public class MenuUsuario {
     public void menu(){
         String[] janela = {" - " , "Inserir" , "Listar" ,
-                "Pesquisar", "Atualizar", "Excluir", "Sair"};
+                "Pesquisar pelo ID", "Atualizar", "Sair"};
         String opcao;
 
         do {
@@ -23,7 +24,7 @@ public class MenuUsuario {
             switch (opcao.toLowerCase()){
                 case "inserir" -> inserir();
                 case "listar" -> listar();
-                case "pesquisar" -> pesquisar();
+                case "pesquisar pelo id" -> pesquisarID();
                 case "atualizar" -> atualizar();
 
 
@@ -87,7 +88,28 @@ public class MenuUsuario {
         new  UsuarioDAO().atualizar(usuario);
     }
 
-    private void pesquisar() {
+    private void pesquisarID() {
+
+        Integer id = parseInt(showInputDialog("Digite o ID do usuário que você deseja consultar os dados:"));
+        Optional<Usuario> resultado = new UsuarioDAO().pesquisarID(id);
+        if (resultado.isPresent()){
+
+            Usuario usuario = resultado.get();
+
+            String aux = "";
+            aux += "ID: "+ usuario.getId() + "\n";
+            aux += "Nome: "+ usuario.getNome() + "\n";
+            aux += "Idade: "+ usuario.getIdade() + "\n";
+            aux += "Peso: "+ usuario.getPeso() + "\n";
+            aux += "Altura: "+ usuario.getAltura() + "\n";
+
+            showMessageDialog(null,aux);
+
+
+        }else {
+            showMessageDialog(null, "Usuário não encontrado.");
+        }
+
 
     }
 
