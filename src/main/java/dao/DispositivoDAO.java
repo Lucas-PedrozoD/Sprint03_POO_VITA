@@ -33,15 +33,19 @@ public class DispositivoDAO implements GenericDAO <Dispositivo,Integer> {
     @Override
     public List<Dispositivo> listar() {
         List<Dispositivo> lista = new ArrayList<>();
-        String sql = "Select * from java_dispositivo";
+        String sql = "Select  d.*, u.nome "+
+                "FROM java_dispositivo d " +
+                "Join java_usuario u ON d.id_usuario = u.id";
         try(Connection connection = ConnectionFactory.obterConexao();
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery()){
+
             while (rs.next()){
                 Dispositivo dispositivo = new Dispositivo();
                 Usuario usuario = new Usuario();
                 dispositivo.setId(rs.getInt("id"));
                 usuario.setId(rs.getInt("id_usuario"));
+                usuario.setNome(rs.getString("nome"));
                 dispositivo.setTipo(rs.getString("tipo"));
                 dispositivo.setModelo(rs.getString("modelo"));
                 dispositivo.setMarca(rs.getString("marca"));

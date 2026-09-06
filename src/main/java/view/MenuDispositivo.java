@@ -29,11 +29,21 @@ public class MenuDispositivo {
     }
 
     private void listar() {
-
+        List <Dispositivo> lista = new DispositivoDAO().listar();
+        String aux = "";
+        aux += "ID dispositivo | Id Usuário-Nome | Tipo | Modelo | Marca | Status\n";
+        aux += "-----------------------------------------\n";
+        for (Dispositivo dispositivo: lista){
+            aux += dispositivo.getId() + " | " + dispositivo.getUsuario().getId() + "-" + dispositivo.getUsuario().getNome()+
+                    " | " + dispositivo.getTipo() + " | "+ dispositivo.getModelo() + " | " +
+                    dispositivo.getMarca() + " | " + dispositivo.getStuatus() + "\n";
+        }
+        showMessageDialog(null, aux);
     }
 
     private void inserir() {
         Dispositivo dispositivo = new Dispositivo();
+
         List<Usuario> lista = new UsuarioDAO().listar();
         String[] opcoes = new String[lista.size() + 1];
         opcoes[0] = " - ";

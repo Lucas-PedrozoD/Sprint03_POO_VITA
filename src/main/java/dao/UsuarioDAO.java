@@ -52,14 +52,15 @@ public class UsuarioDAO implements GenericDAO<Usuario,Integer>{
 
     public void atualizar (Usuario usuario){
         String sql = "update java_usuario set nome = ?," +
-                " set idade = ?, set peso = ?," +
-                " set altura = ?   where id = ?";
+                " idade = ?, peso = ?," +
+                " altura = ?   where id = ?";
         try(Connection connection = ConnectionFactory.obterConexao();
         PreparedStatement ps = connection.prepareStatement(sql)){
             ps.setString(1,usuario.getNome());
             ps.setInt(2,usuario.getIdade());
             ps.setDouble(3,usuario.getPeso());
             ps.setDouble(4,usuario.getAltura());
+            ps.setInt(5,usuario.getId());
             ps.execute();
         }catch (SQLException e){
             System.out.println(e.getMessage());
