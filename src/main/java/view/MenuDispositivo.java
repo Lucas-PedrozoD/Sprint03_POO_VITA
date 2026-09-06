@@ -1,7 +1,11 @@
 package view;
 
 import dao.DispositivoDAO;
+import dao.UsuarioDAO;
 import model.Dispositivo;
+import model.Usuario;
+
+import java.util.List;
 
 import static javax.swing.JOptionPane.*;
 
@@ -19,12 +23,40 @@ public class MenuDispositivo {
 
             switch (opcao.toLowerCase()){
                 case "inserir" -> inserir();
+                case "listar" -> listar();
             }
         }while (!opcao.toLowerCase().equals("sair"));
     }
 
+    private void listar() {
+
+    }
+
     private void inserir() {
         Dispositivo dispositivo = new Dispositivo();
+        List<Usuario> lista = new UsuarioDAO().listar();
+        String[] opcoes = new String[lista.size() + 1];
+        opcoes[0] = " - ";
+
+        for (int i = 0; i < lista.size() ; i++){
+            Usuario usuario = lista.get(i);
+                opcoes[i + 1] = usuario.getId() + " - " + usuario.getNome();
+        }
+        String usuarioSelecionado = (String) showInputDialog(null,
+                "Selecionar o usuário",
+                "Usuário",
+                QUESTION_MESSAGE, null,
+                opcoes,
+                opcoes[0]);
+        for (Usuario usuario: lista){
+            String opcao = usuario.getId() + " - " + usuario.getNome();
+
+            if (opcao.equals(usuarioSelecionado)){
+                dispositivo.setUsuario(usuario);
+                break;
+            }
+        }
+
         String[] tipos = { " - " , "Relógio", "Pulseira"};
         String tipo = (String) showInputDialog(null,
                 "Selecione o tipo",
@@ -60,6 +92,7 @@ public class MenuDispositivo {
 
         new DispositivoDAO().inserir(dispositivo);
     }
+
 
 
 }

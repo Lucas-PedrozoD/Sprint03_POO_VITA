@@ -3,7 +3,6 @@ package dao;
 import factory.ConnectionFactory;
 import model.Dispositivo;
 import model.Usuario;
-import oracle.jdbc.proxy.annotation.Pre;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -44,7 +43,8 @@ public class DispositivoDAO implements GenericDAO <Dispositivo,Integer> {
                 dispositivo.setId(rs.getInt("id"));
                 usuario.setId(rs.getInt("id_usuario"));
                 dispositivo.setTipo(rs.getString("tipo"));
-                dispositivo.setModelo(rs.getString("marca"));
+                dispositivo.setModelo(rs.getString("modelo"));
+                dispositivo.setMarca(rs.getString("marca"));
                 dispositivo.setStuatus(rs.getString("status"));
                 dispositivo.setUsuario(usuario);
                 lista.add(dispositivo);
